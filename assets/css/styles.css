@@ -69,6 +69,9 @@ header.scrolled {
     text-align: center;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     z-index: 1;
+    white-space: nowrap;
+    display: block;
+    width: 100%;
 }
 .promo-title span {
     opacity: 0;
@@ -77,10 +80,13 @@ header.scrolled {
 }
 .spotlight {
     position: absolute;
-    width: 80px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 70%);
+    width: 100px; /* Plus large pour un effet Pixar */
+    height: 100px; /* Forme circulaire */
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
     pointer-events: none;
+    border-radius: 50%;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 2;
 }
 
 /* Carrousel dans la bannière */

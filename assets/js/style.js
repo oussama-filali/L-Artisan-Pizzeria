@@ -5,33 +5,51 @@ window.addEventListener('scroll', () => {
 });
 
 // Animation style Pixar pour le titre
-const title = document.querySelector('.promo-title');
-const text = title.textContent;
-title.innerHTML = '';
-text.split('').forEach((letter, index) => {
-    const span = document.createElement('span');
-    span.textContent = letter;
-    span.style.animation = `fadeIn 0.5s ${index * 0.1}s forwards`;
-    title.appendChild(span);
-});
+document.addEventListener('DOMContentLoaded', function() {
+    const promoTitle = document.querySelector('.promo-title');
+    const text = promoTitle.textContent;
+    promoTitle.innerHTML = text.split('').map(letter => {
+        if (letter === ' ') {
+            return `<span> </span>`; // Espace insécable
+        }
+        return `<span>${letter}</span>`;
+    }).join('');
 
-// Animation de la lumière sur les lettres
-const spotlight = document.querySelector('.spotlight');
-let currentIndex = 0;
-const spans = document.querySelectorAll('.promo-title span');
-function moveSpotlight() {
-    if (currentIndex < spans.length) {
-        const span = spans[currentIndex];
-        const rect = span.getBoundingClientRect();
-        spotlight.style.left = `${rect.left + rect.width / 2}px`;
-        spotlight.style.top = `${rect.top - 50}px`;
-        currentIndex++;
-        setTimeout(moveSpotlight, 300);
-    } else {
-        spotlight.style.display = 'none';
+    // Animation de la lumière sur les lettres (style Pixar)
+    const spotlight = document.querySelector('.spotlight');
+    const spans = document.querySelectorAll('.promo-title span');
+    let currentIndex = 0;
+
+    function moveSpotlight() {
+        if (currentIndex < spans.length) {
+            const span = spans[currentIndex];
+            const rect = span.getBoundingClientRect();
+            const promoTitleRect = promoTitle.getBoundingClientRect();
+
+            // Positionner le spotlight au centre de la lettre
+            spotlight.style.left = `${rect.left - promoTitleRect.left + rect.width / 2}px`;
+            spotlight.style.top = `${rect.top - promoTitleRect.top - 20}px`; // Légèrement au-dessus
+            spotlight.style.opacity = '1';
+            spotlight.style.transform = 'scale(1.2)'; // Effet de grossissement
+
+            // Ajouter un effet temporaire à la lettre
+            span.style.color = '#fff'; // Lettre éclairée en blanc
+            span.style.transition = 'color 0.3s ease';
+
+            setTimeout(() => {
+                span.style.color = '#ff6347'; // Retour à la couleur initiale
+                spotlight.style.transform = 'scale(1)'; // Retour à la taille normale
+                currentIndex++;
+                moveSpotlight();
+            }, 300); // Temps par lettre
+        } else {
+            spotlight.style.opacity = '0'; // Cacher le spotlight à la fin
+        }
     }
-}
-setTimeout(moveSpotlight, 500);
+
+    // Démarrer l'animation après un léger délai
+    setTimeout(moveSpotlight, 500);
+});
 
 // Animation olives tombantes
 document.addEventListener('DOMContentLoaded', () => {
