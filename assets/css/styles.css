@@ -1,0 +1,318 @@
+/* Style général */
+body {
+    font-family: 'Cinzel', serif;
+    background: #b3660e; /* Brun caramel */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    color: #2f2f2f; /* Gris anthracite */
+}
+
+/* Header smooth et transparent */
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+header.scrolled {
+    background: rgba(248, 241, 233, 0.95); /* Blanc cassé opaque */
+}
+.navbar-brand img {
+    height: 50px;
+}
+.nav-link {
+    color: #fff !important;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+}
+.nav-link:hover {
+    color: #d4a017 !important; /* Doré élégant */
+}
+
+/* Animation olives tombantes */
+.olive-fall-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 999;
+}
+.olive {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: url('/assets/img/olive-removebg-preview.png') no-repeat center/contain;
+    animation: fall 5s linear infinite;
+}
+
+/* Bannière avec animation */
+.banner {
+    height: 100vh;
+    background: url('https://via.placeholder.com/1920x1080') no-repeat center/cover;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background-color: #f8f1e9; /* Blanc cassé pour contraste */
+}
+.promo-title {
+    color: #ff6347; /* Rouge tomate */
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+.promo-title span {
+    opacity: 0;
+    display: inline-block;
+    animation: fadeIn 0.5s forwards, letterGlow 1.5s infinite;
+}
+.spotlight {
+    position: absolute;
+    width: 80px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 70%);
+    pointer-events: none;
+}
+
+/* Carrousel dans la bannière */
+.carousel-container {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    overflow: hidden;
+}
+.carousel-slide {
+    display: flex;
+    animation: slide 20s linear infinite;
+}
+.carousel-img {
+    width: 300px;
+    height: 150px;
+    object-fit: cover;
+    margin: 0 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Menu défilant */
+.menu {
+    padding: 50px 0;
+    background: #fff;
+}
+.menu-scroll-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 20px;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+}
+.menu-item {
+    flex: 0 0 auto;
+    width: 300px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    scroll-snap-align: start;
+    cursor: pointer;
+}
+.menu-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+.menu-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+}
+.menu-content {
+    padding: 15px;
+    text-align: center;
+}
+.menu-content h3 {
+    margin: 10px 0;
+    color: #ff6347; /* Rouge tomate */
+}
+.price {
+    font-weight: bold;
+    color: #d4a017; /* Doré */
+}
+
+/* Section localisation */
+.ou-nous-trouver {
+    padding: 50px 0;
+    text-align: center;
+    background: #f8f1e9;
+}
+.map-iframe {
+    width: 100%;
+    height: 400px;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Section contact */
+.contact {
+    padding: 50px 0;
+    text-align: center;
+    background: #fff;
+}
+.btn-contact {
+    padding: 10px 20px;
+    background: #ff6347;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.btn-contact:hover {
+    background: #e5533d;
+}
+
+/* Modal glassmorphism */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+}
+.glass-modal {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.15);
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    animation: modalFadeIn 0.5s ease-in-out;
+}
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+}
+.glass-modal h3 {
+    color: #0c0c0c;
+    margin-bottom: 20px;
+}
+.glass-modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.glass-modal input, .glass-modal textarea {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #020202;
+}
+.glass-modal button {
+    padding: 10px;
+    background: #ff6347;
+    color: #0d0d0d;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.glass-modal a {
+    color: #d4a017; /* Doré */
+}
+.modal-pizza-img {
+    border-radius: 15px;
+    transform: scale(0.9);
+    transition: transform 0.6s ease;
+}
+.modal-pizza-img:hover {
+    transform: scale(1);
+}
+.ingredients-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+}
+.ingredients-list span {
+    padding: 8px;
+    background: rgba(255, 99, 71, 0.1);
+    border-radius: 5px;
+    text-align: center;
+    font-size: 0.9em;
+    color: #2f2f2f;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+@keyframes letterGlow {
+    0% { text-shadow: 0 0 0 rgba(255, 255, 255, 0); }
+    50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
+    100% { text-shadow: 0 0 0 rgba(255, 255, 255, 0); }
+}
+@keyframes fall {
+    0% { transform: translateY(-100px); opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
+}
+@keyframes slide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translate(-50%, -60%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* Pied de page */
+footer {
+    padding: 20px 0;
+    background: #2f2f2f;
+    color: #f8f1e9;
+    text-align: center;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .promo-title {
+        font-size: 2rem;
+    }
+    .menu-item {
+        width: 250px;
+    }
+    .navbar-nav {
+        text-align: center;
+    }
+    .map-iframe {
+        height: 300px;
+    }
+    .carousel-img {
+        width: 200px;
+        height: 100px;
+    }
+}
