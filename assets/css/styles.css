@@ -23,7 +23,11 @@ header.scrolled {
     background: rgba(248, 241, 233, 0.95); /* Blanc cassé opaque */
 }
 .navbar-brand img {
-    height: 50px;
+    height: 80px; /* Augmentez la taille du logo */
+    width: 80px; /* Assurez-vous que la largeur est égale à la hauteur */
+    border-radius: 50%; /* Rend le logo circulaire */
+    object-fit: cover; /* Assure que l'image s'adapte bien dans le cercle */
+    border: 2px solid #ff6347; /* Optionnel : ajoute une bordure rouge tomate */
 }
 .nav-link {
     color: #fff !important;
@@ -304,12 +308,35 @@ footer {
 }
 
 /* Responsive design */
+@media (max-width: 1200px) {
+    .promo-title {
+        font-size: 3rem;
+    }
+    .carousel-img {
+        width: 250px;
+        height: 125px;
+    }
+}
+
+@media (max-width: 992px) {
+    .promo-title {
+        font-size: 2.5rem;
+    }
+    .carousel-img {
+        width: 200px;
+        height: 100px;
+    }
+    .menu-item {
+        width: 250px;
+    }
+}
+
 @media (max-width: 768px) {
     .promo-title {
         font-size: 2rem;
     }
     .menu-item {
-        width: 250px;
+        width: 200px;
     }
     .navbar-nav {
         text-align: center;
@@ -318,7 +345,23 @@ footer {
         height: 300px;
     }
     .carousel-img {
-        width: 200px;
-        height: 100px;
+        width: 150px;
+        height: 75px;
+    }
+}
+
+@media (max-width: 576px) {
+    .promo-title {
+        font-size: 1.5rem;
+    }
+    .menu-item {
+        width: 150px;
+    }
+    .carousel-img {
+        width: 100px;
+        height: 50px;
+    }
+    .banner {
+        height: 50vh;
     }
 }
