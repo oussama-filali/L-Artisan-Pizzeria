@@ -25,7 +25,7 @@
                         <li class="nav-item"><a class="nav-link" href="#menu" data-i18n="Menu">Menu</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact" data-i18n="Contact">Contact</a></li>
                         <li class="nav-item">
-                            <select id="languageSwitcher" class="form-control" title="Language Switcher">
+                            <select id="languageSwitcher" class="form-control" title="Sélecteur de langue">
                                 <option value="fr">Français</option>
                                 <option value="en">English</option>
                             </select>
@@ -37,122 +37,76 @@
         <div class="olive-fall-container"></div>
     </header>
 
-    <!-- Bannière avec animation -->
-    <section class="banner" data-aos="fade-up">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 text-center">
-                    <p class="promo-title" data-i18n="La meilleure pizza de la ville">
-                        <span>L</span><span>a</span> <span>m</span><span>e</span><span>i</span><span>l</span><span>l</span><span>e</span><span>u</span><span>r</span> <span>p</span><span>i</span><span>z</span><span>z</span><span>a</span> <span>d</span><span>e</span> <span>l</span><span>a</span> <span>v</span><span>i</span><span>l</span><span>l</span><span>e</span>
-                    </p>
-                    <div class="spotlight"></div>
-                </div>
-            </div>
-            <div class="carousel-container">
-                <div class="carousel-slide">
-                    <img src="./assets/img/delicieuse-pizza-aux-pepperoni-champignons-olives_191095-91111.avif" alt="Personnel" class="carousel-img">
-                    <img src="./assets/img/vue-du-haut-pizza-isolee_23-2151361763.avif" alt="Pizzeria" class="carousel-img">
-                    <img src="./assets/img/vue-haut-delicieuse-pizza_23-2151868914.avif" alt="Personnel" class="carousel-img">
-                    <img src="./assets/img/vue-haut-delicieuse-pizza_23-2151868964.avif" alt="Pizzeria" class="carousel-img">
-                </div>
-            </div>
+    <!-- Bannière vidéo moderne -->
+    <section class="video-banner" data-aos="fade-up">
+        <video class="video-background" autoplay muted loop playsinline>
+            <source src="./assets/img/VID-20250527-WA0003.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+        <div class="container video-banner-content">
+            <p class="promo-title" data-i18n="La meilleure pizza de la ville">
+                <span>L</span><span>a</span> <span>m</span><span>e</span><span>i</span><span>l</span><span>l</span><span>e</span><span>u</span><span>r</span> <span>p</span><span>i</span><span>z</span><span>z</span><span>a</span> <span>d</span><span>e</span> <span>l</span><span>a</span> <span>v</span><span>i</span><span>l</span><span>l</span><span>e</span>
+            </p>
+            <div class="spotlight"></div>
         </div>
     </section>
 
-    <!-- Menu défilant -->
-    <section id="menu" class="menu" data-aos="fade-up">
-        <div class="menu-scroll-container">
-            <div class="menu-item" data-toggle="modal" data-target="#pizzaModal">
-                <img src="./img/pizza1.jpg" alt="Pizza Margherita">
-                <div class="menu-content">
-                    <h3>Pizza Margherita</h3>
-                    <p>Tomate, mozzarella, basilic</p>
-                    <p class="price">10€</p>
+    <!-- Carrousel de vidéos ambiance pizzeria -->
+    <div class="container my-5">
+        <div id="videoCarousel" class="carousel slide carousel-dark" data-ride="carousel">
+            <div class="carousel-inner bg-dark bg-opacity-75 rounded-lg p-4">
+                <div class="carousel-item active text-center">
+                    <video class="carousel-video" autoplay muted loop playsinline>
+                        <source src="./assets/img/VID-20250527-WA0002.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="carousel-item text-center">
+                    <video class="carousel-video" autoplay muted loop playsinline>
+                        <source src="./assets/img/VID-20250527-WA0004.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="carousel-item text-center">
+                    <video class="carousel-video" autoplay muted loop playsinline>
+                        <source src="./assets/img/VID-20250527-WA0007.mp4" type="video/mp4">
+                    </video>
                 </div>
             </div>
-            <div class="menu-item" data-toggle="modal" data-target="#pizzaModal">
-                <img src="./img/pizza2.jpg" alt="Pizza 4 fromages">
-                <div class="menu-content">
-                    <h3>Pizza 4 fromages</h3>
-                    <p>Tomate, mozzarella, gorgonzola, emmental, parmesan</p>
-                    <p class="price">12€</p>
-                </div>
-            </div>
-            <div class="menu-item" data-toggle="modal" data-target="#pizzaModal">
-                <img src="./img/pizza3.jpg" alt="Pizza Reine">
-                <div class="menu-content">
-                    <h3>Pizza Reine</h3>
-                    <p>Tomate, mozzarella, jambon, champignons, olives</p>
-                    <p class="price">13€</p>
-                </div>
-            </div>
-            <div class="menu-item" data-toggle="modal" data-target="#pizzaModal">
-                <img src="./img/pizza4.jpg" alt="Pizza Calzone">
-                <div class="menu-content">
-                    <h3>Pizza Calzone</h3>
-                    <p>Tomate, mozzarella, jambon, champignons, œuf</p>
-                    <p class="price">14€</p>
-                </div>
-            </div>
-            <div class="menu-item" data-toggle="modal" data-target="#pizzaModal">
-                <img src="./img/pizza5.jpg" alt="Pizza 4 saisons">
-                <div class="menu-content">
-                    <h3>Pizza 4 saisons</h3>
-                    <p>Tomate, mozzarella, jambon, champignons, artichauts, olives</p>
-                    <p class="price">15€</p>
-                </div>
-            </div>
-            <div class="menu-item" data-toggle="modal" data-target="#pizzaModal">
-                <img src="./img/pizza6.jpg" alt="Pizza Végétarienne">
-                <div class="menu-content">
-                    <h3>Pizza Végétarienne</h3>
-                    <p>Tomate, mozzarella, poivrons, champignons, artichauts, olives</p>
-                    <p class="price">16€</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Modal Bootstrap pour les pizzas -->
-    <div class="modal fade" id="pizzaModal" tabindex="-1" aria-labelledby="pizzaModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content glass-modal">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="pizzaModalLabel"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <img src="" class="img-fluid modal-pizza-img" alt="Pizza">
-                        </div>
-                        <div class="col-md-6">
-                            <p class="modal-description"></p>
-                            <div class="ingredients-list"></div>
-                            <p class="modal-price"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <a class="carousel-control-prev" href="#videoCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                <span class="sr-only">Précédent</span>
+            </a>
+            <a class="carousel-control-next" href="#videoCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                <span class="sr-only">Suivant</span>
+            </a>
         </div>
     </div>
+
+    <!-- Menu -->
+    <section id="menu" class="menu" data-aos="fade-up">
+        <div class="container">
+            <h2 class="text-center mb-4">Notre carte</h2>
+            <div id="menu-tabs" class="mb-4 text-center">
+                <button class="btn active" data-menu="base_tomate">Base Tomate</button>
+                <button class="btn" data-menu="base_creme">Base Crème</button>
+                <button class="btn" data-menu="desserts">Desserts</button>
+                <button class="btn" data-menu="boissons">Boissons</button>
+            </div>
+            <div id="menu-list" class="row"></div>
+            <div id="supplements" class="mt-4 text-center"></div>
+            <div id="paiement" class="mt-2 text-center"></div>
+        </div>
+    </section>
 
     <!-- Section localisation -->
     <section id="location" class="ou-nous-trouver" data-aos="fade-up">
         <div class="container">
             <h2 data-i18n="Où nous trouver ?">Où nous trouver ?</h2>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2902.672!2d5.393811!3d43.286237!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12c9bf565af40cef%3A0xd70dea5da883f80d!2s62%20Rue%20du%20Berceau%2C%2013005%20Marseille!5e0!3m2!1sfr!2sfr!4v1742047054234!5m2!1sfr!2sfr" 
-                    width="100%" height="400" class="map-iframe" allowfullscreen="" title="Localisation Pizzeria"></iframe>
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    var iframe = document.querySelector('.map-iframe');
-                    if ('loading' in HTMLIFrameElement.prototype) {
-                        iframe.setAttribute('loading', 'lazy');
-                    }
-                });
-            </script>
+            <iframe
+              src="https://www.google.com/maps?q=62+Rue+du+Berceau,+13005+Marseille&output=embed"
+              class="map-iframe"
+              allowfullscreen=""
+              title="Localisation Pizzeria"></iframe>
         </div>
     </section>
 
@@ -160,32 +114,18 @@
     <section id="contact" class="contact" data-aos="fade-up">
         <div class="container">
             <h2 data-i18n="Contactez-nous">Contactez-nous</h2>
-            <button class="btn-contact" onclick="openModal()" data-i18n="Nous écrire">Nous écrire</button>
+            <div class="contact-links">
+                <a href="sms:+33123456789?body=Bonjour, je voudrais passer une commande !" class="btn-contact" data-i18n="Envoyer un SMS">Envoyer un SMS</a>
+                <a href="https://www.instagram.com/lartisanpizzeria" target="_blank" rel="noopener" class="btn-contact" data-i18n="Suivez-nous sur Instagram">Suivez-nous sur Instagram</a>
+            </div>
         </div>
     </section>
-
-    <!-- Modal glassmorphism pour contact -->
-    <div id="contactModal" class="modal">
-        <div class="modal-content glass-modal">
-            <span class="close" onclick="closeModal()">×</span>
-            <h3 data-i18n="Nous contacter">Nous contacter</h3>
-            <form id="contactForm">
-                <input type="text" placeholder="Votre nom" required data-i18n="[placeholder]Votre nom">
-                <input type="email" placeholder="Votre email" required data-i18n="[placeholder]Votre email">
-                <textarea placeholder="Votre message" required data-i18n="[placeholder]Votre message"></textarea>
-                <button type="submit" data-i18n="Envoyer">Envoyer</button>
-            </form>
-            <p data-i18n="Ou contactez-nous directement :">Ou contactez-nous directement :</p>
-            <p><a href="tel:+33123456789" data-i18n="Appelez-nous">+33 1 23 45 67 89</a></p>
-            <p><a href="mailto:contact@pizzeria.com" data-i18n="Envoyez-nous un email">contact@pizzeria.com</a></p>
-        </div>
-    </div>
 
     <!-- Pied de page -->
     <footer>
         <div class="container">
             <p data-i18n="Tous droits réservés.">© L'Artisan Pizzeria - Tous droits réservés.</p>
-            <select id="languageSwitcherFooter" class="form-control" title="Language Switcher">
+            <select id="languageSwitcherFooter" class="form-control" title="Sélecteur de langue">
                 <option value="fr">Français</option>
                 <option value="en">English</option>
             </select>
@@ -200,63 +140,5 @@
     <script src="https://unpkg.com/i18next@21.6.14/dist/umd/i18next.min.js"></script>
     <script src="https://unpkg.com/jquery-i18next@1.2.1/dist/umd/jquery-i18next.min.js"></script>
     <script src="./assets/js/style.js"></script>
-    <script>
-        // Initialisation de i18next
-        i18next.init({
-            lng: 'fr',
-            resources: {
-                en: {
-                    translation: {
-                        "Accueil": "Home",
-                        "Menu": "Menu",
-                        "Contact": "Contact",
-                        "La meilleure pizza de la ville": "The best pizza in town",
-                        "Où nous trouver ?": "Where to find us?",
-                        "Contactez-nous": "Contact us",
-                        "Nous écrire": "Write to us",
-                        "Appelez-nous": "Call us",
-                        "Envoyez-nous un email": "Send us an email",
-                        "Nous contacter": "Contact us",
-                        "Votre nom": "Your name",
-                        "Votre email": "Your email",
-                        "Votre message": "Your message",
-                        "Envoyer": "Send",
-                        "Ou contactez-nous directement :": "Or contact us directly:",
-                        "Tous droits réservés.": "All rights reserved."
-                    }
-                },
-                fr: {
-                    translation: {
-                        "Accueil": "Accueil",
-                        "Menu": "Menu",
-                        "Contact": "Contact",
-                        "La meilleure pizza de la ville": "La meilleure pizza de la ville",
-                        "Où nous trouver ?": "Où nous trouver ?",
-                        "Contactez-nous": "Contactez-nous",
-                        "Nous écrire": "Nous écrire",
-                        "Appelez-nous": "Appelez-nous",
-                        "Envoyez-nous un email": "Envoyez-nous un email",
-                        "Nous contacter": "Nous contacter",
-                        "Votre nom": "Votre nom",
-                        "Votre email": "Votre email",
-                        "Votre message": "Votre message",
-                        "Envoyer": "Envoyer",
-                        "Ou contactez-nous directement :": "Ou contactez-nous directement :",
-                        "Tous droits réservés.": "Tous droits réservés."
-                    }
-                }
-            }
-        }, function(err, t) {
-            jqueryI18next.init(i18next, $);
-            $('body').localize();
-        });
-
-        $('#languageSwitcher, #languageSwitcherFooter').on('change', function() {
-            var selectedLang = $(this).val();
-            i18next.changeLanguage(selectedLang, function(err, t) {
-                $('body').localize();
-            });
-        });
-    </script>
 </body>
 </html>

@@ -1,0 +1,6 @@
+[
+  { "nom": "Pizza Nutella", "description": "Nutella, avalanche de produits Kinder", "prix": "10€" },
+  { "nom": "Fondant au chocolat", "description": "", "prix": "3.50€" },
+  { "nom": "Tiramisu", "description": "", "prix": "3.50€" },
+  { "nom": "Glace mini pot Häagen-Dazs", "description": "", "prix": "4€" }
+]
