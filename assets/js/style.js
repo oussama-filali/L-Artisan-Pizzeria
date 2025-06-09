@@ -2,6 +2,32 @@
 
 // Regroupement des initialisations dans un seul DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Fix pour la compatibilité Firefox avec l'attribut playsinline
+    document.querySelectorAll('.firefox-video').forEach(video => {
+        // Définir la propriété playsInline programmatiquement pour Firefox
+        video.playsInline = true;
+        
+        // Ajuster les vidéos du carrousel pour qu'elles s'adaptent à leur conteneur
+        if (video.classList.contains('carousel-video')) {
+            video.addEventListener('loadedmetadata', function() {
+                // Ajuster la taille de la vidéo en fonction de son ratio
+                const videoRatio = this.videoWidth / this.videoHeight;
+                const containerWidth = this.parentElement.clientWidth;
+                const containerHeight = this.parentElement.clientHeight;
+                
+                if (videoRatio > containerWidth / containerHeight) {
+                    // Vidéo plus large que haute par rapport au conteneur
+                    this.style.width = '100%';
+                    this.style.height = 'auto';
+                } else {
+                    // Vidéo plus haute que large par rapport au conteneur
+                    this.style.width = 'auto';
+                    this.style.height = '100%';
+                }
+            });
+        }
+    });
+
     // Animation du header au défilement
     const header = document.querySelector('header');
     window.addEventListener('scroll', () => {
@@ -214,3 +240,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+col.innerHTML = `
+  <div class="menu-item card p-3">
+    <img src="./assets/img/${pizza.nom.toLowerCase().replace(/ /g, '-').replace(/[’']/g, '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')}.jpg" class="card-img-top" alt="${pizza.nom}">
+    <div class="card-body text-center">
+      <h3>${pizza.nom}</h3>
+      <p>${pizza.description || ''}</p>
+      <p class="price">${pizza.prix}</p>
+    </div>
+  </div>
+`;

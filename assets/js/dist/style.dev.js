@@ -1,7 +1,31 @@
 "use strict"; // Regroupement des initialisations dans un seul DOMContentLoaded
 
 document.addEventListener('DOMContentLoaded', function () {
-  // Animation du header au défilement
+  // Fix pour la compatibilité Firefox avec l'attribut playsinline
+  document.querySelectorAll('.firefox-video').forEach(function (video) {
+    // Définir la propriété playsInline programmatiquement pour Firefox
+    video.playsInline = true; // Ajuster les vidéos du carrousel pour qu'elles s'adaptent à leur conteneur
+
+    if (video.classList.contains('carousel-video')) {
+      video.addEventListener('loadedmetadata', function () {
+        // Ajuster la taille de la vidéo en fonction de son ratio
+        var videoRatio = this.videoWidth / this.videoHeight;
+        var containerWidth = this.parentElement.clientWidth;
+        var containerHeight = this.parentElement.clientHeight;
+
+        if (videoRatio > containerWidth / containerHeight) {
+          // Vidéo plus large que haute par rapport au conteneur
+          this.style.width = '100%';
+          this.style.height = 'auto';
+        } else {
+          // Vidéo plus haute que large par rapport au conteneur
+          this.style.width = 'auto';
+          this.style.height = '100%';
+        }
+      });
+    }
+  }); // Animation du header au défilement
+
   var header = document.querySelector('header');
   window.addEventListener('scroll', function () {
     header.classList.toggle('scrolled', window.scrollY > 50);
@@ -392,3 +416,4 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+col.innerHTML = "\n  <div class=\"menu-item card p-3\">\n    <img src=\"./assets/img/".concat(pizza.nom.toLowerCase().replace(/ /g, '-').replace(/[’']/g, '').normalize('NFD').replace(/[\u0300-\u036f]/g, ''), ".jpg\" class=\"card-img-top\" alt=\"").concat(pizza.nom, "\">\n    <div class=\"card-body text-center\">\n      <h3>").concat(pizza.nom, "</h3>\n      <p>").concat(pizza.description || '', "</p>\n      <p class=\"price\">").concat(pizza.prix, "</p>\n    </div>\n  </div>\n");
