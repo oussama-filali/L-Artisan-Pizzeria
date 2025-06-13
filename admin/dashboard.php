@@ -4,9 +4,43 @@ session_start();
 
 // Vérifier si l'utilisateur est connecté, sinon le rediriger vers la page de connexion
 if(!isset($_SESSION["admin_logged_in"]) || $_SESSION["admin_logged_in"] !== true){
-    header("location: index.php");
+    // Ajouter des informations de débogage
+    echo "<div style='background: #f8d7da; color: #721c24; padding: 10px; margin: 10px; border-radius: 5px;'>";
+    echo "<h3>Erreur d'authentification</h3>";
+    echo "<p>Vous n'êtes pas connecté ou votre session a expiré.</p>";
+    echo "<p>Variables de session :</p>";
+    echo "<pre>";
+    print_r($_SESSION);
+    echo "</pre>";
+    echo "<p><a href='index.php'>Retourner à la page de connexion</a></p>";
+    echo "</div>";
     exit;
 }
+
+// Fonction pour lire les fichiers JSON
+function readJsonFile($file) {
+    $jsonFile = "../assets/data/" . $file;
+    if (file_exists($jsonFile)) {
+        $jsonContent = file_get_contents($jsonFile);
+        return json_decode($jsonContent, true);
+    }
+    return [];
+}
+
+// Charger les données statistiques
+$statsData = readJsonFile("stats.json");
+
+// Charger les données des produits
+$pizzasTomate = readJsonFile("pizzas_tomate.json");
+$pizzasCreme = readJsonFile("pizzas_creme.json");
+$desserts = readJsonFile("desserts.json");
+$boissons = readJsonFile("boissons.json");
+
+// Calculer les totaux
+$totalPizzas = count($pizzasTomate) + count($pizzasCreme);
+$totalDesserts = count($desserts);
+$totalBoissons = count($boissons);
+$totalProduits = $totalPizzas + $totalDesserts + $totalBoissons;
 ?>
 
 <!DOCTYPE html>
@@ -191,29 +225,29 @@ if(!isset($_SESSION["admin_logged_in"]) || $_SESSION["admin_logged_in"] !== true
                 <div class="col-md-3">
                     <div class="stats-card text-center">
                         <i class="fas fa-pizza-slice"></i>
-                        <h3>42</h3>
+                        <h3><?php echo $totalPizzas; ?></h3>
                         <p>Pizzas au menu</p>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="stats-card text-center">
                         <i class="fas fa-users"></i>
-                        <h3>3</h3>
+                        <h3><?php echo $statsData['users']['total']; ?></h3>
                         <p>Utilisateurs</p>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="stats-card text-center">
                         <i class="fas fa-eye"></i>
-                        <h3>1,254</h3>
+                        <h3><?php echo number_format($statsData['visits']['total']); ?></h3>
                         <p>Visites ce mois</p>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="stats-card text-center">
-                        <i class="fas fa-photo-video"></i>
-                        <h3>18</h3>
-                        <p>Médias</p>
+                        <i class="fas fa-utensils"></i>
+                        <h3><?php echo $totalProduits; ?></h3>
+                        <p>Produits totaux</p>
                     </div>
                 </div>
             </div>
@@ -252,31 +286,67 @@ if(!isset($_SESSION["admin_logged_in"]) || $_SESSION["admin_logged_in"] !== true
                         </div>
                         <div class="card-body">
                             <ul class="list-group list-group-flush bg-transparent">
+                                <?php foreach ($statsData['users']['activity'] as $activity): ?>
                                 <li class="list-group-item bg-transparent text-white border-light">
-                                    <i class="fas fa-user-edit mr-2"></i> Modification du profil utilisateur
-                                    <small class="text-muted d-block">Il y a 2 heures</small>
+                                    <?php 
+                                    $icon = 'fa-history';
+                                    if (strpos($activity['action'], 'profil') !== false) {
+                                        $icon = 'fa-user-edit';
+                                    } elseif (strpos($activity['action'], 'pizza') !== false) {
+                                        $icon = 'fa-pizza-slice';
+                                    } elseif (strpos($activity['action'], 'image') !== false || strpos($activity['action'], 'téléchargement') !== false) {
+                                        $icon = 'fa-upload';
+                                    } elseif (strpos($activity['action'], 'contenu') !== false) {
+                                        $icon = 'fa-edit';
+                                    }
+                                    ?>
+                                    <i class="fas <?php echo $icon; ?> mr-2"></i> <?php echo $activity['action']; ?>
+                                    <small class="text-muted d-block">
+                                        <?php 
+                                        $date = new DateTime($activity['date']);
+                                        $now = new DateTime();
+                                        $interval = $date->diff($now);
+                                        
+                                        if ($interval->d == 0) {
+                                            if ($interval->h == 0) {
+                                                echo "Il y a " . $interval->i . " minutes";
+                                            } else {
+                                                echo "Il y a " . $interval->h . " heures";
+                                            }
+                                        } elseif ($interval->d == 1) {
+                                            echo "Il y a 1 jour";
+                                        } elseif ($interval->d < 7) {
+                                            echo "Il y a " . $interval->d . " jours";
+                                        } else {
+                                            echo "Il y a " . floor($interval->d / 7) . " semaine(s)";
+                                        }
+                                        ?>
+                                    </small>
                                 </li>
-                                <li class="list-group-item bg-transparent text-white border-light">
-                                    <i class="fas fa-pizza-slice mr-2"></i> Ajout d'une nouvelle pizza
-                                    <small class="text-muted d-block">Il y a 1 jour</small>
-                                </li>
-                                <li class="list-group-item bg-transparent text-white border-light">
-                                    <i class="fas fa-upload mr-2"></i> Téléchargement d'une nouvelle image
-                                    <small class="text-muted d-block">Il y a 3 jours</small>
-                                </li>
-                                <li class="list-group-item bg-transparent text-white border-light">
-                                    <i class="fas fa-edit mr-2"></i> Mise à jour du contenu de la page d'accueil
-                                    <small class="text-muted d-block">Il y a 1 semaine</small>
-                                </li>
+                                <?php endforeach; ?>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- System Info -->
+            <!-- Popular Products Chart -->
             <div class="row mt-4">
-                <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-chart-bar mr-2"></i>Pizzas les plus populaires</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="popularProductsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- System Info -->
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
                             <h5><i class="fas fa-server mr-2"></i>Informations système</h5>
@@ -295,7 +365,7 @@ if(!isset($_SESSION["admin_logged_in"]) || $_SESSION["admin_logged_in"] !== true
                                         </tr>
                                         <tr>
                                             <td>Base de données</td>
-                                            <td>MySQL</td>
+                                            <td>JSON</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -320,11 +390,170 @@ if(!isset($_SESSION["admin_logged_in"]) || $_SESSION["admin_logged_in"] !== true
                     </div>
                 </div>
             </div>
+            
+            <!-- Product Categories -->
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-th-large mr-2"></i>Répartition des produits par catégorie</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="chart-container">
+                                        <canvas id="categoriesChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Catégorie</th>
+                                                <th>Nombre</th>
+                                                <th>%</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Pizzas Base Tomate</td>
+                                                <td><?php echo count($pizzasTomate); ?></td>
+                                                <td><?php echo round(count($pizzasTomate) / $totalProduits * 100); ?>%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Pizzas Base Crème</td>
+                                                <td><?php echo count($pizzasCreme); ?></td>
+                                                <td><?php echo round(count($pizzasCreme) / $totalProduits * 100); ?>%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Desserts</td>
+                                                <td><?php echo count($desserts); ?></td>
+                                                <td><?php echo round(count($desserts) / $totalProduits * 100); ?>%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Boissons</td>
+                                                <td><?php echo count($boissons); ?></td>
+                                                <td><?php echo round(count($boissons) / $totalProduits * 100); ?>%</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+    // Données pour les graphiques
+    const popularProducts = <?php echo json_encode($statsData['products']['popular']); ?>;
+    
+    // Graphique des produits populaires
+    const popularProductsCtx = document.getElementById('popularProductsChart').getContext('2d');
+    const popularProductsChart = new Chart(popularProductsCtx, {
+        type: 'bar',
+        data: {
+            labels: popularProducts.map(item => item.nom),
+            datasets: [{
+                label: 'Nombre de ventes',
+                data: popularProducts.map(item => item.ventes),
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(255, 206, 86, 0.7)',
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(153, 102, 255, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    }
+                },
+                x: {
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    }
+                }
+            }
+        }
+    });
+    
+    // Graphique des catégories de produits
+    const categoriesCtx = document.getElementById('categoriesChart').getContext('2d');
+    const categoriesChart = new Chart(categoriesCtx, {
+        type: 'pie',
+        data: {
+            labels: ['Pizzas Base Tomate', 'Pizzas Base Crème', 'Desserts', 'Boissons'],
+            datasets: [{
+                data: [
+                    <?php echo count($pizzasTomate); ?>, 
+                    <?php echo count($pizzasCreme); ?>, 
+                    <?php echo count($desserts); ?>, 
+                    <?php echo count($boissons); ?>
+                ],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(255, 206, 86, 0.7)',
+                    'rgba(75, 192, 192, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    }
+                }
+            }
+        }
+    });
+    </script>
 </body>
 </html>

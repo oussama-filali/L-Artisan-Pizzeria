@@ -72,7 +72,7 @@ document.querySelectorAll('#menu-tabs button').forEach(function (bouton) {
             }
 
             _context2.next = 7;
-            return regeneratorRuntime.awrap(chargerJSON('/assets/data/pizzas_tomate.json'));
+            return regeneratorRuntime.awrap(chargerJSON('assets/data/pizzas_tomate.json'));
 
           case 7:
             data = _context2.sent;
@@ -87,7 +87,7 @@ document.querySelectorAll('#menu-tabs button').forEach(function (bouton) {
             }
 
             _context2.next = 14;
-            return regeneratorRuntime.awrap(chargerJSON('/assets/data/pizzas_creme.json'));
+            return regeneratorRuntime.awrap(chargerJSON('assets/data/pizzas_creme.json'));
 
           case 14:
             _data = _context2.sent;
@@ -102,7 +102,7 @@ document.querySelectorAll('#menu-tabs button').forEach(function (bouton) {
             }
 
             _context2.next = 21;
-            return regeneratorRuntime.awrap(chargerJSON('/assets/data/desserts.json'));
+            return regeneratorRuntime.awrap(chargerJSON('assets/data/desserts.json'));
 
           case 21:
             _data2 = _context2.sent;
@@ -117,7 +117,7 @@ document.querySelectorAll('#menu-tabs button').forEach(function (bouton) {
             }
 
             _context2.next = 28;
-            return regeneratorRuntime.awrap(chargerJSON('/assets/data/boissons.json'));
+            return regeneratorRuntime.awrap(chargerJSON('assets/data/boissons.json'));
 
           case 28:
             _data3 = _context2.sent;

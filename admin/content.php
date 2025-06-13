@@ -1,6 +1,13 @@
 <?php
+
 // Initialiser la session
 session_start();
+require_once 'config.php';
+
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'superadmin') {
+    header('Location: index.php');
+    exit;
+}
 
 // Vérifier si l'utilisateur est connecté, sinon le rediriger vers la page de connexion
 if(!isset($_SESSION["admin_logged_in"]) || $_SESSION["admin_logged_in"] !== true){

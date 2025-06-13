@@ -1,0 +1,78 @@
+{
+  "visits": {
+    "total": 1254,
+    "daily": [
+      {"date": "2023-06-01", "count": 42},
+      {"date": "2023-06-02", "count": 38},
+      {"date": "2023-06-03", "count": 45},
+      {"date": "2023-06-04", "count": 51},
+      {"date": "2023-06-05", "count": 48},
+      {"date": "2023-06-06", "count": 52},
+      {"date": "2023-06-07", "count": 49},
+      {"date": "2023-06-08", "count": 55},
+      {"date": "2023-06-09", "count": 60},
+      {"date": "2023-06-10", "count": 65},
+      {"date": "2023-06-11", "count": 58},
+      {"date": "2023-06-12", "count": 52},
+      {"date": "2023-06-13", "count": 48},
+      {"date": "2023-06-14", "count": 51},
+      {"date": "2023-06-15", "count": 54},
+      {"date": "2023-06-16", "count": 57},
+      {"date": "2023-06-17", "count": 62},
+      {"date": "2023-06-18", "count": 59},
+      {"date": "2023-06-19", "count": 53},
+      {"date": "2023-06-20", "count": 50},
+      {"date": "2023-06-21", "count": 47},
+      {"date": "2023-06-22", "count": 45},
+      {"date": "2023-06-23", "count": 48},
+      {"date": "2023-06-24", "count": 52},
+      {"date": "2023-06-25", "count": 55},
+      {"date": "2023-06-26", "count": 58},
+      {"date": "2023-06-27", "count": 54},
+      {"date": "2023-06-28", "count": 51},
+      {"date": "2023-06-29", "count": 49},
+      {"date": "2023-06-30", "count": 46}
+    ],
+    "pages": [
+      {"page": "Accueil", "count": 520},
+      {"page": "Menu", "count": 380},
+      {"page": "Contact", "count": 210},
+      {"page": "À propos", "count": 144}
+    ],
+    "browsers": [
+      {"browser": "Chrome", "count": 680},
+      {"browser": "Firefox", "count": 320},
+      {"browser": "Safari", "count": 180},
+      {"browser": "Edge", "count": 74}
+    ]
+  },
+  "products": {
+    "total": 42,
+    "categories": {
+      "base_tomate": 21,
+      "base_creme": 14,
+      "desserts": 5,
+      "boissons": 8
+    },
+    "popular": [
+      {"nom": "La Royale", "ventes": 125},
+      {"nom": "La 5 Fromages", "ventes": 118},
+      {"nom": "La Tartiflette", "ventes": 105},
+      {"nom": "La Chèvre Miel", "ventes": 98},
+      {"nom": "La Végétarienne", "ventes": 87}
+    ]
+  },
+  "users": {
+    "total": 3,
+    "roles": {
+      "superadmin": 1,
+      "admin": 2
+    },
+    "activity": [
+      {"action": "Modification du profil utilisateur", "date": "2023-06-29 14:25:30"},
+      {"action": "Ajout d'une nouvelle pizza", "date": "2023-06-28 10:15:22"},
+      {"action": "Téléchargement d'une nouvelle image", "date": "2023-06-26 16:45:18"},
+      {"action": "Mise à jour du contenu de la page d'accueil", "date": "2023-06-22 09:30:45"}
+    ]
+  }
+}

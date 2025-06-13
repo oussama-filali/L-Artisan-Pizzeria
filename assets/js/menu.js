@@ -50,16 +50,16 @@ document.querySelectorAll('#menu-tabs button').forEach(bouton => {
     const container = document.getElementById('menu-list');
 
     if (menu === 'base_tomate') {
-      const data = await chargerJSON('/assets/data/pizzas_tomate.json');
+      const data = await chargerJSON('assets/data/pizzas_tomate.json');
       genererPizzas(data, container);
     } else if (menu === 'base_creme') {
-      const data = await chargerJSON('/assets/data/pizzas_creme.json');
+      const data = await chargerJSON('assets/data/pizzas_creme.json');
       genererPizzas(data, container);
     } else if (menu === 'desserts') {
-      const data = await chargerJSON('/assets/data/desserts.json');
+      const data = await chargerJSON('assets/data/desserts.json');
       genererProduits(data, container);
     } else if (menu === 'boissons') {
-      const data = await chargerJSON('/assets/data/boissons.json');
+      const data = await chargerJSON('assets/data/boissons.json');
       genererProduits(data, container);
     }
   });

@@ -1,6 +1,14 @@
 <?php
 // Initialiser la session
 session_start();
+require_once 'config.php';
+
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'superadmin') {
+    header('Location: index.php');
+    exit;
+}
+
+
 
 // Vérifier si l'utilisateur est connecté, sinon le rediriger vers la page de connexion
 if(!isset($_SESSION["admin_logged_in"]) || $_SESSION["admin_logged_in"] !== true){
@@ -23,6 +31,42 @@ function writeJsonFile($file, $data) {
     $jsonFile = "../assets/data/" . $file;
     $jsonContent = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     return file_put_contents($jsonFile, $jsonContent);
+}
+
+// Fonction pour enregistrer une activité
+function logActivity($activity) {
+    $data = [
+        'action' => 'log_activity',
+        'activity' => $activity
+    ];
+    
+    $ch = curl_init('http://' . $_SERVER['HTTP_HOST'] . '/L-Artisan-Pizzeria/admin/api/update_stats.php');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    $response = curl_exec($ch);
+    curl_close($ch);
+    
+    return $response;
+}
+
+// Fonction pour mettre à jour les statistiques des produits
+function updateProductStats($productType) {
+    $data = [
+        'action' => 'update_product_stats',
+        'product_type' => $productType
+    ];
+    
+    $ch = curl_init('http://' . $_SERVER['HTTP_HOST'] . '/L-Artisan-Pizzeria/admin/api/update_stats.php');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    $response = curl_exec($ch);
+    curl_close($ch);
+    
+    return $response;
 }
 
 // Initialiser les variables
@@ -70,6 +114,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $items[] = $newItem;
         
         if (writeJsonFile($jsonFile, $items)) {
+            // Enregistrer l'activité
+            $activity = "Ajout d'une nouvelle " . ($type == 'desserts' ? "dessert" : ($type == 'boissons' ? "boisson" : "pizza")) . ": " . $_POST['nom'];
+            logActivity($activity);
+            
+            // Mettre à jour les statistiques
+            updateProductStats($type);
+            
             $message = "L'élément a été ajouté avec succès.";
             $messageType = "success";
             // Rediriger pour éviter la resoumission du formulaire
@@ -93,6 +144,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ];
             
             if (writeJsonFile($jsonFile, $items)) {
+                // Enregistrer l'activité
+                $activity = "Modification d'un(e) " . ($type == 'desserts' ? "dessert" : ($type == 'boissons' ? "boisson" : "pizza")) . ": " . $_POST['nom'];
+                logActivity($activity);
+                
+                // Mettre à jour les statistiques
+                updateProductStats($type);
+                
                 $message = "L'élément a été modifié avec succès.";
                 $messageType = "success";
                 // Rediriger pour éviter la resoumission du formulaire
@@ -113,6 +171,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             array_splice($items, $index, 1);
             
             if (writeJsonFile($jsonFile, $items)) {
+                // Enregistrer l'activité
+                $activity = "Suppression d'un(e) " . ($type == 'desserts' ? "dessert" : ($type == 'boissons' ? "boisson" : "pizza"));
+                logActivity($activity);
+                
+                // Mettre à jour les statistiques
+                updateProductStats($type);
+                
                 $message = "L'élément a été supprimé avec succès.";
                 $messageType = "success";
                 // Rediriger pour éviter la resoumission du formulaire

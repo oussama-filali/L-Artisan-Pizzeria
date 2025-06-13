@@ -2,6 +2,14 @@
 // Initialiser la session
 session_start();
 
+require_once 'config.php';
+
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'superadmin') {
+    header('Location: index.php');
+    exit;
+}
+
+
 // Vérifier si l'utilisateur est connecté, sinon le rediriger vers la page de connexion
 if(!isset($_SESSION["admin_logged_in"]) || $_SESSION["admin_logged_in"] !== true){
     header("location: index.php");
@@ -11,103 +19,65 @@ if(!isset($_SESSION["admin_logged_in"]) || $_SESSION["admin_logged_in"] !== true
 // Inclure le fichier de configuration
 require_once "config.php";
 
+// Fonction pour lire les fichiers JSON
+function readJsonFile($file) {
+    $jsonFile = "../assets/data/" . $file;
+    if (file_exists($jsonFile)) {
+        $jsonContent = file_get_contents($jsonFile);
+        return json_decode($jsonContent, true);
+    }
+    return [];
+}
+
 // Initialiser les variables
 $period = isset($_GET['period']) ? $_GET['period'] : 'month';
 
 // Déterminer la période pour les statistiques
-$startDate = '';
-$endDate = date('Y-m-d H:i:s');
 $periodLabel = '';
 
 switch ($period) {
     case 'day':
-        $startDate = date('Y-m-d 00:00:00');
         $periodLabel = "Aujourd'hui";
         break;
     case 'week':
-        $startDate = date('Y-m-d 00:00:00', strtotime('-7 days'));
         $periodLabel = "Cette semaine";
         break;
     case 'month':
-        $startDate = date('Y-m-d 00:00:00', strtotime('-30 days'));
         $periodLabel = "Ce mois";
         break;
     case 'year':
-        $startDate = date('Y-m-d 00:00:00', strtotime('-365 days'));
         $periodLabel = "Cette année";
         break;
     default:
-        $startDate = date('Y-m-d 00:00:00', strtotime('-30 days'));
         $periodLabel = "Ce mois";
 }
 
+// Charger les données statistiques depuis le fichier JSON
+$statsData = readJsonFile("stats.json");
+
 // Récupérer les statistiques de visite
-$totalVisits = 0;
-$sql = "SELECT COUNT(*) as total FROM stats WHERE visit_date BETWEEN ? AND ?";
-if ($stmt = $mysqli->prepare($sql)) {
-    $stmt->bind_param("ss", $startDate, $endDate);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($row = $result->fetch_assoc()) {
-        $totalVisits = $row['total'];
-    }
-    $stmt->close();
-}
+$totalVisits = $statsData['visits']['total'];
 
 // Récupérer les statistiques par page
-$pageStats = [];
-$sql = "SELECT page, COUNT(*) as count FROM stats WHERE visit_date BETWEEN ? AND ? GROUP BY page ORDER BY count DESC";
-if ($stmt = $mysqli->prepare($sql)) {
-    $stmt->bind_param("ss", $startDate, $endDate);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
-        $pageStats[] = $row;
-    }
-    $stmt->close();
-}
+$pageStats = $statsData['visits']['pages'];
 
 // Récupérer les statistiques par jour
-$dailyStats = [];
-$sql = "SELECT DATE(visit_date) as date, COUNT(*) as count FROM stats WHERE visit_date BETWEEN ? AND ? GROUP BY DATE(visit_date) ORDER BY date";
-if ($stmt = $mysqli->prepare($sql)) {
-    $stmt->bind_param("ss", $startDate, $endDate);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
-        $dailyStats[] = $row;
-    }
-    $stmt->close();
-}
+$dailyStats = $statsData['visits']['daily'];
 
 // Récupérer les statistiques par navigateur
-$browserStats = [];
-$sql = "SELECT 
-            CASE 
-                WHEN user_agent LIKE '%Chrome%' THEN 'Chrome'
-                WHEN user_agent LIKE '%Firefox%' THEN 'Firefox'
-                WHEN user_agent LIKE '%Safari%' THEN 'Safari'
-                WHEN user_agent LIKE '%Edge%' THEN 'Edge'
-                WHEN user_agent LIKE '%MSIE%' OR user_agent LIKE '%Trident%' THEN 'Internet Explorer'
-                ELSE 'Autre'
-            END as browser,
-            COUNT(*) as count
-        FROM stats 
-        WHERE visit_date BETWEEN ? AND ?
-        GROUP BY browser
-        ORDER BY count DESC";
-if ($stmt = $mysqli->prepare($sql)) {
-    $stmt->bind_param("ss", $startDate, $endDate);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
-        $browserStats[] = $row;
-    }
-    $stmt->close();
-}
+$browserStats = $statsData['visits']['browsers'];
 
-// Fermer la connexion
-$mysqli->close();
+// Charger les données des produits
+$pizzasTomate = readJsonFile("pizzas_tomate.json");
+$pizzasCreme = readJsonFile("pizzas_creme.json");
+$desserts = readJsonFile("desserts.json");
+$boissons = readJsonFile("boissons.json");
+
+// Calculer les totaux
+$totalPizzas = count($pizzasTomate) + count($pizzasCreme);
+$totalDesserts = count($desserts);
+$totalBoissons = count($boissons);
+$totalProduits = $totalPizzas + $totalDesserts + $totalBoissons;
 ?>
 
 <!DOCTYPE html>

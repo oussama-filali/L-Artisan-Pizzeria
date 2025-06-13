@@ -1,4 +1,12 @@
 <?php
+session_start();
+require_once 'config.php';
+
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'superadmin') {
+    header('Location: index.php');
+    exit;
+}
+
 // Script d'installation pour créer la base de données et les tables nécessaires
 
 // Paramètres de connexion à la base de données
@@ -57,12 +65,12 @@ if ($conn->query($sql) === TRUE) {
 }
 
 // Vérifier si un utilisateur admin existe déjà
-$sql = "SELECT id FROM users WHERE username = 'admin'";
+$sql = "SELECT id FROM users WHERE username = 'superadmin'";
 $result = $conn->query($sql);
 
 if ($result->num_rows == 0) {
     // Créer un utilisateur admin par défaut
-    $admin_username = "admin";
+    $admin_username = "adminpizza";
     $admin_password = password_hash("admin123", PASSWORD_DEFAULT); // Mot de passe par défaut: admin123
     $admin_email = "";
     

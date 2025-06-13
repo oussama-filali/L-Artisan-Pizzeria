@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once "config.php";
         
         // Préparer une instruction select
-        $sql = "SELECT id, username, password FROM users WHERE username = ?";
+        $sql = "SELECT id, username, password, role FROM users WHERE username = ?";
         
         if ($stmt = $mysqli->prepare($sql)) {
             // Lier les variables à l'instruction préparée en tant que paramètres
@@ -48,30 +48,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Stocker le résultat
                 $stmt->store_result();
                 
-                // Vérifier si le nom d'utilisateur existe, si oui, vérifier le mot de passe
-                if ($stmt->num_rows == 1) {                    
-                    // Lier les variables de résultat
-                    $stmt->bind_result($id, $username, $hashed_password);
-                    if ($stmt->fetch()) {
-                        if (password_verify($password, $hashed_password)) {
-                            // Le mot de passe est correct, démarrer une nouvelle session
-                            session_start();
-                            
-                            // Stocker les données dans des variables de session
-                            $_SESSION["admin_logged_in"] = true;
-                            $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;                            
-                            
-                            // Rediriger l'utilisateur vers la page d'accueil
-                            header("location: dashboard.php");
-                        } else {
-                            // Le mot de passe n'est pas valide
-                            $login_err = "Nom d'utilisateur ou mot de passe invalide.";
+                // Utilisation d'un switch pour gérer les différents cas d'authentification
+                switch (true) {
+                    // Cas 1: Nom d'utilisateur inexistant
+                    case $stmt->num_rows != 1:
+                        $login_err = "Nom d'utilisateur ou mot de passe invalide.";
+                        break;
+                        
+                    // Cas 2: Nom d'utilisateur existe, vérification du mot de passe
+                    case $stmt->num_rows == 1:
+                        // Lier les variables de résultat
+                        $stmt->bind_result($id, $username, $hashed_password, $role);
+                        
+                        if ($stmt->fetch()) {
+                            // Sous-cas 2.1: Mot de passe correct
+                            if (password_verify($password, $hashed_password)) {
+                                // Le mot de passe est correct
+                                
+                                // Stocker les données dans des variables de session
+                                $_SESSION["admin_logged_in"] = true;
+                                $_SESSION["User_id"] = $id;
+                                $_SESSION["username"] = $username;
+                                $_SESSION["role"] = $role;
+                                
+                                // Ajouter un message de débogage
+                                $_SESSION["debug_time"] = date('H:i:s');
+                                $_SESSION["auth_success"] = true;
+                                
+                                // Rediriger l'utilisateur vers la page d'accueil
+                                header("Location: dashboard.php");
+                                exit(); // Important pour arrêter l'exécution après la redirection
+                            } 
+                            // Sous-cas 2.2: Mot de passe incorrect
+                            else {
+                                $login_err = "Nom d'utilisateur ou mot de passe invalide.";
+                            }
                         }
-                    }
-                } else {
-                    // Le nom d'utilisateur n'existe pas
-                    $login_err = "Nom d'utilisateur ou mot de passe invalide.";
+                        break;
                 }
             } else {
                 echo "Oups! Quelque chose s'est mal passé. Veuillez réessayer plus tard.";
