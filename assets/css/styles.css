@@ -64,23 +64,7 @@ header.scrolled {
     color: #d4a017 !important;
 }
 
-/* Animation olives tombantes */
-.olive-fall-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 999;
-}
-.olive {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background: url('/assets/img/olive-removebg-preview.png') no-repeat center/contain;
-    animation: fall 5s linear infinite;
-}
+/* Animation olives supprimée pour optimisation */
 
 /* Section vidéo complète */
 .video-section {
@@ -182,6 +166,19 @@ header.scrolled {
     padding: 0;
 }
 
+/* Réduit la hauteur du carrousel des vidéos secondaires */
+.video-carousel-container .carousel-video {
+    max-height: 320px;
+    height: 320px;
+    object-fit: cover;
+}
+@media (max-width: 768px) {
+    .video-carousel-container .carousel-video {
+        max-height: 180px;
+        height: 180px;
+    }
+}
+
 /* Menu */
 .menu {
     padding: 50px 0;
@@ -205,9 +202,10 @@ header.scrolled {
 }
 .menu-item img {
     width: 100%;
-    height: 150px;
+    height: 200px;
     object-fit: cover;
-    border-radius: 5px;
+    border-radius: 10px;
+    margin-bottom: 15px;
 }
 .menu-content {
     padding: 10px 0;
@@ -310,6 +308,22 @@ header.scrolled {
 }
 .btn-contact:hover {
     background: #e5533d;
+}
+
+/* Style pour les suppléments et moyens de paiement */
+#supplements {
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 16px;
+    text-shadow: 0 1px 4px #000a;
+}
+#paiement {
+    color: #00e0ff;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 8px;
+    text-shadow: 0 1px 4px #000a;
 }
 
 /* Animations */

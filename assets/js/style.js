@@ -67,16 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     setTimeout(moveSpotlight, 500);
 
-    // Animation olives tombantes
-    const oliveContainer = document.querySelector('.olive-fall-container');
-    for (let i = 0; i < 10; i++) {
-        const olive = document.createElement('div');
-        olive.classList.add('olive');
-        olive.style.left = `${Math.random() * 100}vw`;
-        olive.style.animationDelay = `${Math.random() * 3}s`;
-        oliveContainer.appendChild(olive);
-    }
-    setTimeout(() => oliveContainer.style.display = 'none', 5000);
+    // Animation olives supprimée pour optimisation
 
     // Initialisation AOS
     AOS.init({

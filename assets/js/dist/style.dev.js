@@ -62,21 +62,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  setTimeout(moveSpotlight, 500); // Animation olives tombantes
-
-  var oliveContainer = document.querySelector('.olive-fall-container');
-
-  for (var i = 0; i < 10; i++) {
-    var olive = document.createElement('div');
-    olive.classList.add('olive');
-    olive.style.left = "".concat(Math.random() * 100, "vw");
-    olive.style.animationDelay = "".concat(Math.random() * 3, "s");
-    oliveContainer.appendChild(olive);
-  }
-
-  setTimeout(function () {
-    return oliveContainer.style.display = 'none';
-  }, 5000); // Initialisation AOS
+  setTimeout(moveSpotlight, 500); // Animation olives supprimée pour optimisation
+  // Initialisation AOS
 
   AOS.init({
     duration: 1000,

@@ -34,31 +34,30 @@
                 </div>
             </nav>
         </div>
-        <div class="olive-fall-container"></div>
     </header>
-
     <!-- Section vidéo complète avec bannière et carrousel -->
     <section class="video-section" data-aos="fade-up">
         <!-- Bannière vidéo principale -->
-        <div class="video-banner">
+        <section class="video-banner" data-aos="fade-up">
             <video class="video-background firefox-video" autoplay muted loop playsinline webkit-playsinline>
                 <source src="./assets/img/VID-20250527-WA0003.mp4" type="video/mp4">
             </video>
             <div class="video-overlay"></div>
             <div class="container video-banner-content">
-                <p class="promo-title" data-i18n="La meilleure pizza de la ville">
-                    <span>L</span><span>a</span> <span>m</span><span>e</span><span>i</span><span>l</span><span>l</span><span>e</span><span>u</span><span>r</span> <span>p</span><span>i</span><span>z</span><span>z</span><span>a</span> <span>d</span><span>e</span> <span>l</span><span>a</span> <span>v</span><span>i</span><span>l</span><span>l</span><span>e</span>
-                </p>
+                <p class="promo-title" data-i18n="La meilleure pizza de la ville">La meilleure pizza de la ville</p>
                 <div class="spotlight"></div>
             </div>
-        </div>
-        
-        <!-- Carrousel de vidéos intégré directement sous la bannière -->
-        <div class="video-carousel-container">
+        </section>
+
+        <!-- Séparateur visuel -->
+        <div style="height:40px;"></div>
+
+        <!-- Carrousel de vidéos ambiance pizzeria -->
+        <div class="container video-carousel-container my-3 py-3" style="max-width:900px;">
             <div id="videoCarousel" class="carousel slide carousel-dark" data-ride="carousel">
                 <div class="carousel-inner bg-dark bg-opacity-75 rounded-lg">
                     <div class="carousel-item active text-center">
-                        <video class="carousel-video firefox-video w-100 rounded" autoplay muted loop playsinline webkit-playsinline>
+                        <video class="carousel-video firefox-video w-100 rounded" autoplay muted loop playsinline webkit-playsinline style="max-height: 320px; object-fit: cover;">
                             <source src="./assets/img/VID-20250527-WA0002.mp4" type="video/mp4">
                         </video>
                     </div>
@@ -119,7 +118,7 @@
             <h2 data-i18n="Contactez-nous">Contactez-nous</h2>
             <div class="contact-links">
                 <a href="sms:+33123456789?body=Bonjour, je voudrais passer une commande !" class="btn-contact" data-i18n="Envoyer un SMS">Envoyer un SMS</a>
-                <a href="https://www.instagram.com/lartisanpizzeria" target="_blank" rel="noopener" class="btn-contact" data-i18n="Suivez-nous sur Instagram">Suivez-nous sur Instagram</a>
+                <a href="https://www.instagram.com/l_artisan_pizza_marseille?igsh=OTB1MnpjOGJqeTIy" target="_blank" rel="noopener" class="btn-contact" data-i18n="Suivez-nous sur Instagram">Suivez-nous sur Instagram</a>
             </div>
         </div>
     </section>
@@ -144,6 +143,9 @@
     <script src="https://unpkg.com/jquery-i18next@1.2.1/dist/umd/jquery-i18next.min.js"></script>
     <script src="./assets/js/style.js"></script>
     <script src="./assets/js/menu.js"></script>
+    
+    <!-- Script de statistiques -->
+    <img src="stats.php?page=index" class="stats-tracker-img" alt="Statistiques de visite">
 
 </body>
 </html>

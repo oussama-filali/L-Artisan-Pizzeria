@@ -34,7 +34,7 @@ function genererPizzas(data, container) {
   data.forEach(function (pizza) {
     var col = document.createElement('div');
     col.className = 'col-md-4 mb-4';
-    col.innerHTML = "\n      <div class=\"menu-item card p-3\">\n        <img src=\"./assets/img/".concat(pizza.nom.toLowerCase().replace(/ /g, '-'), ".jpg\" class=\"card-img-top\" alt=\"").concat(pizza.nom, "\">\n        <div class=\"card-body text-center\">\n          <h3>").concat(pizza.nom, "</h3>\n          <p>").concat(pizza.description || '', "</p>\n          <p class=\"price\">").concat(pizza.prix, "</p>\n        </div>\n      </div>");
+    col.innerHTML = "\n      <div class=\"menu-item card p-3 bg-dark text-white h-100 d-flex flex-column justify-content-between\">\n        <div class=\"card-body text-center\">\n          <h3 class=\"card-title mb-2\" style=\"color:#ff6347\">".concat(pizza.nom, "</h3>\n          <p class=\"card-text mb-3\" style=\"color:#ccc\">").concat(pizza.description || '', "</p>\n        </div>\n        <div class=\"price text-center mb-2\" style=\"color:#d4a017; font-weight:bold; font-size:1.2rem\">").concat(pizza.prix, "</div>\n      </div>");
     container.appendChild(col);
   });
 } // Générer les autres produits (boissons, desserts)
@@ -72,7 +72,7 @@ document.querySelectorAll('#menu-tabs button').forEach(function (bouton) {
             }
 
             _context2.next = 7;
-            return regeneratorRuntime.awrap(chargerJSON('./pizzas_tomate.json'));
+            return regeneratorRuntime.awrap(chargerJSON('/assets/data/pizzas_tomate.json'));
 
           case 7:
             data = _context2.sent;
@@ -87,7 +87,7 @@ document.querySelectorAll('#menu-tabs button').forEach(function (bouton) {
             }
 
             _context2.next = 14;
-            return regeneratorRuntime.awrap(chargerJSON('./pizzas_creme.json'));
+            return regeneratorRuntime.awrap(chargerJSON('/assets/data/pizzas_creme.json'));
 
           case 14:
             _data = _context2.sent;
@@ -102,7 +102,7 @@ document.querySelectorAll('#menu-tabs button').forEach(function (bouton) {
             }
 
             _context2.next = 21;
-            return regeneratorRuntime.awrap(chargerJSON('./desserts.json'));
+            return regeneratorRuntime.awrap(chargerJSON('/assets/data/desserts.json'));
 
           case 21:
             _data2 = _context2.sent;
@@ -117,7 +117,7 @@ document.querySelectorAll('#menu-tabs button').forEach(function (bouton) {
             }
 
             _context2.next = 28;
-            return regeneratorRuntime.awrap(chargerJSON('./boissons.json'));
+            return regeneratorRuntime.awrap(chargerJSON('/assets/data/boissons.json'));
 
           case 28:
             _data3 = _context2.sent;
