@@ -1,8 +1,8 @@
 <?php
 /* Configuration de la base de données */
 define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'oussama');
-define('DB_PASSWORD', 'Didoulidaid57@');
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', '');
 define('DB_NAME', 'lartisan_pizzeria');
 
 /* Connexion à la base de données MySQL */
