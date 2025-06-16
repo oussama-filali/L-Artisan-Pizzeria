@@ -636,7 +636,7 @@ if ($action == 'edit') {
                 autoCloseBrackets: true,
                 autoCloseTags: true,
                 matchBrackets: true,
-                matchTags: true
+                matchTags: true,
             });
         <?php endif; ?>
     </script>
