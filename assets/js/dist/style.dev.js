@@ -143,5 +143,15 @@ document.addEventListener('DOMContentLoaded', function () {
         firstVideo.play()["catch"](function () {});
       }
     }
+  }); // Affichage du flyer en modal
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var flyerBtn = document.getElementById('showFlyerBtn');
+
+    if (flyerBtn) {
+      flyerBtn.addEventListener('click', function () {
+        $('#flyerModal').modal('show');
+      });
+    }
   });
 });
