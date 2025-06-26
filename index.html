@@ -35,6 +35,7 @@
             </nav>
         </div>
     </header>
+
     <!-- Section vidéo complète avec bannière et carrousel -->
     <section class="video-section" data-aos="fade-up">
         <!-- Bannière vidéo principale -->
@@ -88,6 +89,19 @@
     <section id="menu" class="menu" data-aos="fade-up">
         <div class="container">
             <h2 class="text-center mb-4">Notre carte</h2>
+
+            <div class="text-center text-warning font-weight-bold mb-3" style="font-size: 1.2rem;">
+                💳 Paiement uniquement sur place : espèces, CB, tickets restaurant
+            </div>
+            <div class="text-center mb-4">
+                <a href="./assets/img/mode_paiement_web.jpg" download class="btn btn-outline-light mr-2">
+                    Télécharger notre carte 📄
+                </a>
+                <button type="button" class="btn btn-outline-warning" id="showFlyerBtn">
+                    Afficher le flyer 👁️
+                </button>
+            </div>
+
             <div id="menu-tabs" class="mb-4 text-center">
                 <button class="btn active" data-menu="base_tomate">Base Tomate</button>
                 <button class="btn" data-menu="base_creme">Base Crème</button>
@@ -143,9 +157,25 @@
     <script src="https://unpkg.com/jquery-i18next@1.2.1/dist/umd/jquery-i18next.min.js"></script>
     <script src="./assets/js/style.js"></script>
     <script src="./assets/js/menu.js"></script>
-    
+
     <!-- Script de statistiques -->
     <img src="stats.php?page=index" class="stats-tracker-img" alt="Statistiques de visite">
 
+    <!-- Modal Flyer -->
+    <div class="modal fade" id="flyerModal" tabindex="-1" role="dialog" aria-labelledby="flyerModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content bg-dark">
+          <div class="modal-header border-0">
+            <h5 class="modal-title text-white" id="flyerModalLabel">Notre flyer</h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Fermer">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body text-center">
+            <img src="./assets/img/mode_paiement_web.jpg" alt="Flyer" class="img-fluid rounded shadow">
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
 </html>

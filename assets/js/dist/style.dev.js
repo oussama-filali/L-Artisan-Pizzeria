@@ -108,5 +108,40 @@ document.addEventListener('DOMContentLoaded', function () {
     i18next.changeLanguage(selectedLang, function (err, t) {
       $('body').localize();
     });
+  }); // --- Gestion ergonomique du carrousel vidéo sur mobile ---
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var carousel = document.getElementById('videoCarousel');
+
+    if (carousel) {
+      // Bootstrap 4: événement 'slide.bs.carousel'
+      $('#videoCarousel').on('slide.bs.carousel', function (e) {
+        // Pause toutes les vidéos du carrousel
+        document.querySelectorAll('.carousel-video').forEach(function (video) {
+          video.pause();
+          video.currentTime = 0;
+        }); // Joue la vidéo de la prochaine slide
+
+        var nextIndex = e.to;
+        var items = carousel.querySelectorAll('.carousel-item');
+
+        if (items[nextIndex]) {
+          var video = items[nextIndex].querySelector('video');
+
+          if (video) {
+            // Nécessaire sur iOS pour permettre la lecture
+            video.muted = true;
+            video.play()["catch"](function () {});
+          }
+        }
+      }); // Démarre la première vidéo au chargement
+
+      var firstVideo = carousel.querySelector('.carousel-item.active video');
+
+      if (firstVideo) {
+        firstVideo.muted = true;
+        firstVideo.play()["catch"](function () {});
+      }
+    }
   });
 });

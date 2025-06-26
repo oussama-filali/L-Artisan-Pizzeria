@@ -388,3 +388,15 @@ header.scrolled {
   height: 50px !important;
 }
 
+/* Responsive vidéo carrousel */
+@media (max-width: 600px) {
+  .carousel-video {
+    max-height: 180px !important;
+    height: 180px !important;
+  }
+  .video-banner .video-background {
+    max-height: 180px !important;
+    height: 180px !important;
+  }
+}
+
